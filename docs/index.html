@@ -80,14 +80,19 @@
   .subtitle { color: var(--text-mid); font-size: 0.9rem; }
 
   .header-right { text-align: right; color: var(--text-mid); font-size: 0.78rem; }
-  .header-right .data-ref { color: var(--text-hi); font-size: 1rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+  .data-select {
+    background: var(--bg-panel); color: var(--signal); border: 1px solid var(--line);
+    border-radius: 8px; padding: 0.3rem 0.6rem; font-size: 1rem; font-weight: 700;
+    margin-top: 0.2rem; cursor: pointer;
+  }
+  .data-select:focus { outline: 2px solid var(--signal); }
 
   /* ===== LAYOUT ===== */
   main { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 1.75rem; }
 
   .kpi-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
   }
   .kpi {
@@ -152,17 +157,78 @@
     overflow: hidden;
   }
   .dish-card.alert { border-color: rgba(255,107,107,0.5); }
+  .dish-card { cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; }
+  .dish-card:hover { transform: translateY(-2px); border-color: var(--signal); }
+  .dish-card:focus-visible { outline: 2px solid var(--signal); }
+  .mes-bar-wrap { margin-top: 0.6rem; }
+  .mes-bar-label { display: flex; justify-content: space-between; font-size: 0.62rem; color: var(--text-low); font-family: 'Space Mono', monospace; margin-bottom: 0.25rem; }
+  .mes-bar-track { background: var(--line); height: 4px; border-radius: 3px; overflow: hidden; }
+  .mes-bar-fill { height: 100%; background: linear-gradient(90deg, var(--signal-dim), var(--signal)); }
+  .semana-delta { font-size: 0.62rem; margin-top: 0.5rem; font-family: 'Space Mono', monospace; }
+
+  /* ===== MODAL HISTÓRICO INDIVIDUAL ===== */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(3,6,12,0.75);
+    backdrop-filter: blur(3px); z-index: 50; align-items: center; justify-content: center;
+    padding: 1.5rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
+    border: 1px solid var(--line); border-radius: var(--radius);
+    max-width: 720px; width: 100%; padding: 1.6rem; position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem; background: none; border: 1px solid var(--line);
+    color: var(--text-mid); border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 1rem;
+  }
+  .modal-close:hover { color: var(--text-hi); border-color: var(--signal); }
+  .modal-title { font-weight: 800; font-size: 1.2rem; margin-bottom: 0.2rem; }
+  .modal-sub { color: var(--text-mid); font-size: 0.8rem; margin-bottom: 1rem; }
+  .modal-premio {
+    background: rgba(53,231,203,0.06); border: 1px solid var(--line); border-radius: 10px;
+    padding: 0.8rem 1rem; margin-bottom: 1.1rem; font-size: 0.78rem; color: var(--text-mid);
+    display: flex; flex-direction: column; gap: 0.35rem;
+  }
+  .modal-premio b { color: var(--text-hi); font-family: 'Space Mono', monospace; }
+  .modal-premio .sugestao-linha { display: flex; gap: 0.4rem; margin-top: 0.3rem; }
   .dish-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
   .dish-name { font-weight: 700; font-size: 0.92rem; line-height: 1.25; max-width: 130px; }
+  .dish-top-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
   .dish-badge {
     font-family: 'Space Mono', monospace; font-size: 0.65rem;
     color: var(--text-low); border: 1px solid var(--line); border-radius: 20px;
     padding: 0.15rem 0.5rem;
   }
+  .premio-badge {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700;
+    border-radius: 20px; padding: 0.15rem 0.55rem; white-space: nowrap;
+  }
+  .premio-badge.ganhando { background: rgba(245,185,66,0.15); color: var(--gold); border: 1px solid rgba(245,185,66,0.4); }
+  .premio-badge.fora { background: rgba(79,94,125,0.15); color: var(--text-low); border: 1px solid var(--line); }
+  .sugestao-box {
+    margin-top: 0.7rem; padding-top: 0.6rem; border-top: 1px dashed var(--line);
+    font-size: 0.68rem; line-height: 1.45; color: var(--text-mid); display: flex; gap: 0.4rem;
+  }
+  .sugestao-box .icone { flex-shrink: 0; }
   .dish-svg-wrap { display: flex; align-items: center; justify-content: center; margin: 0.4rem 0; }
   .dish-pct { font-family: 'Space Mono', monospace; font-size: 1.05rem; font-weight: 700; }
-  .dish-stats { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-mid); margin-top: 0.7rem; }
-  .dish-stats b { color: var(--text-hi); font-family: 'Space Mono', monospace; font-weight: 500; }
+  .dish-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 0.5rem;
+    font-size: 0.68rem;
+    color: var(--text-mid);
+    margin-top: 0.8rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line);
+  }
+  .dish-stats > span { min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+  .dish-stats > span > small { font-size: 0.62rem; color: var(--text-low); }
+  .dish-stats b {
+    color: var(--text-hi); font-family: 'Space Mono', monospace; font-weight: 500;
+    font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
   .evo-up { color: var(--signal); }
   .evo-down { color: var(--alert); }
   .tag-row { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.6rem; }
@@ -222,7 +288,7 @@
   </div>
   <div class="header-right">
     <div>DIA DE REFERÊNCIA</div>
-    <div class="data-ref" id="dataRef">--/--/----</div>
+    <select id="seletorData" class="data-select mono"></select>
     <div id="geradoEm" style="margin-top:0.3rem;">atualizado --</div>
   </div>
 </header>
@@ -255,28 +321,51 @@
 
 <footer>HUBMAIS MANAGER — gerado automaticamente a partir da Base Central · não substitui a validação do supervisor</footer>
 
+<div class="modal-overlay" id="modalHistorico">
+  <div class="modal-box">
+    <button class="modal-close" id="modalFechar" aria-label="Fechar">✕</button>
+    <div class="modal-title" id="modalNome">—</div>
+    <div class="modal-sub" id="modalSub">Histórico de recebido no mês</div>
+    <div id="modalPremio" class="modal-premio"></div>
+    <svg id="modalChart" width="100%" height="200" viewBox="0 0 1000 200" preserveAspectRatio="none"></svg>
+  </div>
+</div>
+
 <script>
 const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const fmtPct = v => (v * 100).toFixed(0) + '%';
 
+let DADOS = null;
+
 async function carregar() {
   const res = await fetch('./data.json?t=' + Date.now());
-  const d = await res.json();
-  render(d);
+  DADOS = await res.json();
+
+  const seletor = document.getElementById('seletorData');
+  seletor.innerHTML = DADOS.datas_disponiveis.map(dt => `<option value="${dt}">${dt}</option>`).join('');
+  seletor.value = DADOS.data_mais_recente;
+  seletor.addEventListener('change', () => render(seletor.value));
+
+  document.getElementById('geradoEm').textContent = 'atualizado ' + DADOS.gerado_em;
+  document.getElementById('subtitulo').textContent = `Turno ${DADOS.turno} · Sup. ${DADOS.supervisor}`;
+
+  render(DADOS.data_mais_recente);
+  configurarModal();
 }
 
-function render(d) {
-  document.getElementById('dataRef').textContent = d.data_referencia;
-  document.getElementById('geradoEm').textContent = 'atualizado ' + d.gerado_em;
-  document.getElementById('subtitulo').textContent = `Turno ${d.turno} · Sup. ${d.supervisor}`;
+function render(dataSelecionada) {
+  const dia = DADOS.por_data[dataSelecionada];
+  const { equipe, colaboradores } = dia;
+  const numColab = colaboradores.length;
 
   // KPIs
   const kpiRow = document.getElementById('kpiRow');
   const kpis = [
-    { label: 'Recebido hoje (equipe)', value: fmtBRL(d.equipe.recebido_hoje), sub: `Meta diária/colab.: ${fmtBRL(d.config.meta_diaria)}` },
-    { label: 'Recebido na semana', value: fmtBRL(d.equipe.recebido_semana), sub: `de ${fmtBRL(d.equipe.meta_semana)} (equipe)` },
-    { label: 'Progresso da meta', value: fmtPct(d.equipe.progresso), sub: barraTexto(d.equipe.progresso) },
-    { label: 'Colaboradores em sinal', value: `${d.colaboradores.filter(c => !c.tma_fora_padrao).length}/${d.colaboradores.length}`, sub: 'TMA dentro do padrão' },
+    { label: 'Recebido hoje (equipe)', value: fmtBRL(equipe.recebido_hoje), sub: `Meta diária/colab.: ${fmtBRL(DADOS.config.meta_diaria)}` },
+    { label: 'Recebido na semana', value: fmtBRL(equipe.recebido_semana), sub: `${fmtPct(equipe.progresso_semana)} de ${fmtBRL(equipe.meta_semana)}` },
+    { label: 'Recebido no mês', value: fmtBRL(equipe.recebido_mes), sub: equipe.progresso_mes !== null ? `${fmtPct(equipe.progresso_mes)} de ${fmtBRL(equipe.meta_mes)}` : '—' },
+    { label: 'Premiação prevista (equipe)', value: fmtBRL(colaboradores.reduce((s,c) => s + c.premiacao.valor_bonus_atual, 0)), sub: `${colaboradores.filter(c => c.premiacao.valor_bonus_atual > 0).length}/${numColab} elegíveis hoje` },
+    { label: 'Colaboradores em sinal', value: `${colaboradores.filter(c => !c.tma_fora_padrao).length}/${numColab}`, sub: 'TMA dentro do padrão' },
   ];
   kpiRow.innerHTML = kpis.map(k => `
     <div class="kpi">
@@ -287,24 +376,30 @@ function render(d) {
 
   // Ranking
   const rankingList = document.getElementById('rankingList');
-  rankingList.innerHTML = d.colaboradores.map(c => `
+  rankingList.innerHTML = colaboradores.map(c => `
     <div class="rank-item ${c.ranking === 1 ? 'first' : ''}">
       <div class="rank-num mono">${String(c.ranking).padStart(2, '0')}</div>
       <div class="rank-name">${c.nome}</div>
-      <div class="signal-bars">${sinalBars(c.ranking, d.colaboradores.length)}</div>
+      <div class="signal-bars">${sinalBars(c.ranking, numColab)}</div>
       <div class="rank-value">${fmtBRL(c.recebido_hoje)}</div>
     </div>`).join('');
 
   // Dishes (medidores individuais)
   const dishGrid = document.getElementById('dishGrid');
-  dishGrid.innerHTML = d.colaboradores.map(c => dishCard(c)).join('');
+  dishGrid.innerHTML = colaboradores.map(c => dishCard(c)).join('');
+  dishGrid.querySelectorAll('.dish-card').forEach((el, i) => {
+    el.addEventListener('click', () => abrirHistorico(colaboradores[i]));
+    el.tabIndex = 0;
+    el.addEventListener('keydown', e => { if (e.key === 'Enter') abrirHistorico(colaboradores[i]); });
+  });
 
-  // Tendência da equipe
-  desenharTendencia(d.equipe.tendencia, d.config.meta_diaria * d.colaboradores.length);
+  // Tendência da equipe (até a data selecionada)
+  desenharLinha('trendChart', equipe.tendencia.map(p => ({ data: p.data, valor: p.recebido })),
+    DADOS.config.meta_diaria * numColab);
 
   // Console de alertas
   const alertas = [];
-  d.colaboradores.forEach(c => {
+  colaboradores.forEach(c => {
     if (c.tma_fora_padrao) alertas.push({ tipo: 'danger', msg: `TMA fora do padrão — ${c.nome} (${c.tma})` });
     if (c.negocia_muito_recebe_pouco) alertas.push({ tipo: 'warn', msg: `Negocia muito, recebe pouco — ${c.nome}` });
     if (c.recebe_bem_baixo_volume) alertas.push({ tipo: 'warn', msg: `Recebe bem, baixo volume de negociações — ${c.nome}` });
@@ -316,13 +411,6 @@ function render(d) {
     : `<div class="ok">[SINAL] Nenhum alerta — todos os colaboradores dentro do padrão.</div>`;
 }
 
-function barraTexto(p) {
-  const pct = Math.min(p, 1) * 100;
-  return `<div style="background:var(--line);height:5px;border-radius:3px;margin-top:0.4rem;overflow:hidden;">
-    <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--signal),var(--gold));"></div>
-  </div>`;
-}
-
 function sinalBars(ranking, total) {
   const nivel = Math.ceil(5 * (total - ranking + 1) / total);
   let html = '';
@@ -331,24 +419,39 @@ function sinalBars(ranking, total) {
 }
 
 function dishCard(c) {
-  const pct = Math.min(c.progresso, 1);
+  const pct = Math.min(c.progresso_semana, 1);
   const raio = 42, circ = 2 * Math.PI * raio;
   const offset = circ * (1 - pct);
   const cor = pct >= 1 ? 'var(--gold)' : 'var(--signal)';
-  const evoIcon = c.evolucao === null ? '—' : (c.evolucao >= 0 ? '▲' : '▼');
-  const evoClass = c.evolucao === null ? '' : (c.evolucao >= 0 ? 'evo-up' : 'evo-down');
-  const evoTxt = c.evolucao === null ? 'sem base' : fmtPct(Math.abs(c.evolucao));
+
+  const evoIcon = c.evolucao_dia === null ? '—' : (c.evolucao_dia >= 0 ? '▲' : '▼');
+  const evoClass = c.evolucao_dia === null ? '' : (c.evolucao_dia >= 0 ? 'evo-up' : 'evo-down');
+  const evoTxt = c.evolucao_dia === null ? 'sem base' : fmtPct(Math.abs(c.evolucao_dia));
+
+  const semIcon = c.evolucao_semana === null ? '—' : (c.evolucao_semana >= 0 ? '▲' : '▼');
+  const semClass = c.evolucao_semana === null ? '' : (c.evolucao_semana >= 0 ? 'evo-up' : 'evo-down');
+  const semTxt = c.evolucao_semana === null ? 'sem semana anterior' : `${semIcon} ${fmtPct(Math.abs(c.evolucao_semana))} vs. semana passada`;
+
+  const pctMes = Math.min(c.progresso_mes, 1) * 100;
+
+  const p = c.premiacao;
+  const premioClass = p.valor_bonus_atual > 0 ? 'ganhando' : 'fora';
+  const premioTexto = p.valor_bonus_atual > 0 ? `💰 R$${p.valor_bonus_atual}` : '💰 R$0';
 
   const tags = [];
   if (c.tma_fora_padrao) tags.push('<span class="tag tma">TMA ATÍPICO</span>');
   if (c.negocia_muito_recebe_pouco) tags.push('<span class="tag neg">NEGOCIA×RECEBE</span>');
   if (c.recebe_bem_baixo_volume) tags.push('<span class="tag baixo">BAIXO VOLUME</span>');
+  if (!p.elegivel) tags.push('<span class="tag tma">CONVERSÃO &lt;65%</span>');
 
   return `
-  <div class="dish-card ${c.tma_fora_padrao ? 'alert' : ''}">
+  <div class="dish-card ${c.tma_fora_padrao ? 'alert' : ''}" role="button" aria-label="Ver histórico de ${c.nome}">
     <div class="dish-top">
       <div class="dish-name">${c.nome}</div>
-      <div class="dish-badge">#${c.ranking}</div>
+      <div class="dish-top-right">
+        <div class="dish-badge">#${c.ranking}</div>
+        <div class="premio-badge ${premioClass}">${premioTexto}</div>
+      </div>
     </div>
     <div class="dish-svg-wrap">
       <svg width="110" height="110" viewBox="0 0 110 110">
@@ -361,47 +464,87 @@ function dishCard(c) {
       </svg>
     </div>
     <div class="dish-stats">
-      <span>TMA<br><b>${c.tma}</b></span>
-      <span>Hoje<br><b>${fmtBRL(c.recebido_hoje)}</b></span>
-      <span class="${evoClass}">vs. ontem<br><b>${evoIcon} ${evoTxt}</b></span>
+      <span><small>TMA</small><b>${c.tma}</b></span>
+      <span><small>Hoje</small><b>${fmtBRL(c.recebido_hoje)}</b></span>
+      <span class="${evoClass}"><small>vs. ontem</small><b>${evoIcon} ${evoTxt}</b></span>
     </div>
+    <div class="mes-bar-wrap">
+      <div class="mes-bar-label"><span>META MENSAL</span><span>${pctMes.toFixed(0)}%</span></div>
+      <div class="mes-bar-track"><div class="mes-bar-fill" style="width:${pctMes}%"></div></div>
+    </div>
+    <div class="semana-delta ${semClass}">${semTxt}</div>
     <div class="tag-row">${tags.join('')}</div>
+    <div class="sugestao-box"><span class="icone">💡</span><span>${c.sugestao}</span></div>
   </div>`;
 }
 
-function desenharTendencia(pontos, metaEquipeDia) {
-  const svg = document.getElementById('trendChart');
-  const W = 1000, H = 180, pad = 24;
-  const valores = pontos.map(p => p.recebido);
-  const max = Math.max(...valores, metaEquipeDia) * 1.15;
-  const passoX = (W - pad * 2) / (pontos.length - 1);
+function desenharLinha(svgId, pontos, linhaMetaValor) {
+  const svg = document.getElementById(svgId);
+  const W = 1000, H = svg.viewBox.baseVal.height || 180, pad = 24;
+  if (!pontos.length) { svg.innerHTML = ''; return; }
+  const valores = pontos.map(p => p.valor);
+  const max = Math.max(...valores, linhaMetaValor || 0) * 1.15 || 1;
+  const passoX = pontos.length > 1 ? (W - pad * 2) / (pontos.length - 1) : 0;
 
   const coords = pontos.map((p, i) => {
     const x = pad + i * passoX;
-    const y = H - pad - (p.recebido / max) * (H - pad * 2);
+    const y = H - pad - (p.valor / max) * (H - pad * 2);
     return [x, y];
   });
 
   const linha = coords.map((c, i) => (i === 0 ? 'M' : 'L') + c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' ');
   const area = linha + ` L${coords[coords.length-1][0]},${H-pad} L${coords[0][0]},${H-pad} Z`;
-  const yMeta = H - pad - (metaEquipeDia / max) * (H - pad * 2);
 
   let svgHtml = `
     <defs>
-      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id="grad-${svgId}" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#35E7CB" stop-opacity="0.35"/>
         <stop offset="100%" stop-color="#35E7CB" stop-opacity="0"/>
       </linearGradient>
-    </defs>
-    <line x1="${pad}" y1="${yMeta}" x2="${W-pad}" y2="${yMeta}" stroke="#F5B942" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
-    <path d="${area}" fill="url(#areaGrad)" />
-    <path d="${linha}" fill="none" stroke="#35E7CB" stroke-width="2.5" />
-  `;
+    </defs>`;
+  if (linhaMetaValor) {
+    const yMeta = H - pad - (linhaMetaValor / max) * (H - pad * 2);
+    svgHtml += `<line x1="${pad}" y1="${yMeta}" x2="${W-pad}" y2="${yMeta}" stroke="#F5B942" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>`;
+  }
+  svgHtml += `<path d="${area}" fill="url(#grad-${svgId})" />`;
+  svgHtml += `<path d="${linha}" fill="none" stroke="#35E7CB" stroke-width="2.5" />`;
   coords.forEach((c, i) => {
     svgHtml += `<circle cx="${c[0]}" cy="${c[1]}" r="3.5" fill="#060B14" stroke="#35E7CB" stroke-width="2"/>`;
     svgHtml += `<text x="${c[0]}" y="${H-6}" text-anchor="middle" font-size="10" fill="#4F5E7D" font-family="Space Mono, monospace">${pontos[i].data}</text>`;
   });
   svg.innerHTML = svgHtml;
+}
+
+function abrirHistorico(c) {
+  const serie = DADOS.series_colaborador[c.nome] || [];
+  document.getElementById('modalNome').textContent = c.nome;
+  document.getElementById('modalSub').textContent = `Recebido por dia — mês completo (${serie.length} dias com fechamento)`;
+
+  const p = c.premiacao;
+  const modalPremio = document.getElementById('modalPremio');
+  let linhas = [];
+  linhas.push(`<div>Faixa atual: <b>${p.valor_bonus_atual > 0 ? 'R$' + p.valor_bonus_atual : 'R$0 — nenhuma faixa batida ainda'}</b></div>`);
+  linhas.push(`<div>Conversão do mês (recebido/negociado): <b>${p.conversao_mes_pct !== null ? fmtPct(p.conversao_mes_pct) : '—'}</b> ${p.elegivel ? '✅ elegível' : `⚠️ precisa de ${fmtPct(p.limiar_conversao)}`}</div>`);
+  if (p.proximo_valor_bonus !== null) {
+    linhas.push(`<div>Pra chegar na próxima faixa (R$${p.proximo_valor_bonus}): falta <b>${fmtBRL(p.falta_proxima_faixa)}</b>, em <b>${p.dias_uteis_restantes_mes}</b> dias úteis restantes do mês.</div>`);
+    if (p.ritmo_diario_necessario !== null) {
+      linhas.push(`<div>Ritmo necessário: <b>${fmtBRL(p.ritmo_diario_necessario)}/dia</b> a partir de agora.</div>`);
+    }
+  } else {
+    linhas.push(`<div>Já está na faixa máxima de premiação este mês. 🎯</div>`);
+  }
+  linhas.push(`<div class="sugestao-linha"><span>💡</span><span>${c.sugestao}</span></div>`);
+  modalPremio.innerHTML = linhas.join('');
+
+  desenharLinha('modalChart', serie.map(p => ({ data: p.data, valor: p.recebido })), DADOS.config.meta_diaria);
+  document.getElementById('modalHistorico').classList.add('open');
+}
+
+function configurarModal() {
+  const overlay = document.getElementById('modalHistorico');
+  document.getElementById('modalFechar').addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
 }
 
 carregar();
