@@ -1,0 +1,460 @@
+{
+  "gerado_em": "21/08/2026 09:06",
+  "data_referencia": "18/08/2026",
+  "supervisor": "Reginaldo Sousa Barbosa",
+  "turno": "Vespertino",
+  "config": {
+    "meta_diaria": 1923.0,
+    "meta_semanal": 11538,
+    "limiar_tma_pct": 0.3
+  },
+  "equipe": {
+    "recebido_semana": 18759.58,
+    "meta_semana": 80766,
+    "progresso": 0.2323,
+    "recebido_hoje": 7811.36,
+    "tendencia": [
+      {
+        "data": "09/08",
+        "recebido": 1053.82
+      },
+      {
+        "data": "10/08",
+        "recebido": 8661.28
+      },
+      {
+        "data": "11/08",
+        "recebido": 9084.16
+      },
+      {
+        "data": "12/08",
+        "recebido": 8892.42
+      },
+      {
+        "data": "13/08",
+        "recebido": 6139.02
+      },
+      {
+        "data": "14/08",
+        "recebido": 6089.34
+      },
+      {
+        "data": "15/08",
+        "recebido": 3051.0
+      },
+      {
+        "data": "16/08",
+        "recebido": 612.59
+      },
+      {
+        "data": "17/08",
+        "recebido": 10948.22
+      },
+      {
+        "data": "18/08",
+        "recebido": 7811.36
+      }
+    ]
+  },
+  "colaboradores": [
+    {
+      "nome": "Nayara Bispo Do Espirito Santo",
+      "tma": "00:05:15",
+      "recebido_hoje": 1890.12,
+      "pct_recebimento": 0.4977,
+      "recebido_semana": 4553.56,
+      "meta_semana": 11538,
+      "progresso": 0.3947,
+      "evolucao": -0.2903,
+      "ranking": 1,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📉 Caindo",
+      "negocia_muito_recebe_pouco": false,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 313.91
+        },
+        {
+          "data": "10/08",
+          "recebido": 1143.8
+        },
+        {
+          "data": "11/08",
+          "recebido": 514.75
+        },
+        {
+          "data": "12/08",
+          "recebido": 1255.86
+        },
+        {
+          "data": "13/08",
+          "recebido": 811.57
+        },
+        {
+          "data": "14/08",
+          "recebido": 620.63
+        },
+        {
+          "data": "15/08",
+          "recebido": 136.5
+        },
+        {
+          "data": "16/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "17/08",
+          "recebido": 2663.44
+        },
+        {
+          "data": "18/08",
+          "recebido": 1890.12
+        }
+      ]
+    },
+    {
+      "nome": "Yara Do Carmo Da Conceicao",
+      "tma": "00:04:39",
+      "recebido_hoje": 1802.86,
+      "pct_recebimento": 0.4569,
+      "recebido_semana": 3668.78,
+      "meta_semana": 11538,
+      "progresso": 0.318,
+      "evolucao": -0.0338,
+      "ranking": 2,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📉 Caindo",
+      "negocia_muito_recebe_pouco": false,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "10/08",
+          "recebido": 2423.56
+        },
+        {
+          "data": "11/08",
+          "recebido": 1243.87
+        },
+        {
+          "data": "12/08",
+          "recebido": 3102.24
+        },
+        {
+          "data": "13/08",
+          "recebido": 1379.13
+        },
+        {
+          "data": "14/08",
+          "recebido": 1801.29
+        },
+        {
+          "data": "15/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "16/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "17/08",
+          "recebido": 1865.92
+        },
+        {
+          "data": "18/08",
+          "recebido": 1802.86
+        }
+      ]
+    },
+    {
+      "nome": "Ivoneide Duarte Ferreira",
+      "tma": "00:06:05",
+      "recebido_hoje": 987.85,
+      "pct_recebimento": 0.2879,
+      "recebido_semana": 2931.93,
+      "meta_semana": 11538,
+      "progresso": 0.2541,
+      "evolucao": -0.4919,
+      "ranking": 3,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📉 Caindo",
+      "negocia_muito_recebe_pouco": true,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 326.41
+        },
+        {
+          "data": "10/08",
+          "recebido": 777.48
+        },
+        {
+          "data": "11/08",
+          "recebido": 541.28
+        },
+        {
+          "data": "12/08",
+          "recebido": 640.67
+        },
+        {
+          "data": "13/08",
+          "recebido": 171.1
+        },
+        {
+          "data": "14/08",
+          "recebido": 757.36
+        },
+        {
+          "data": "15/08",
+          "recebido": 590.04
+        },
+        {
+          "data": "16/08",
+          "recebido": 397.41
+        },
+        {
+          "data": "17/08",
+          "recebido": 1944.08
+        },
+        {
+          "data": "18/08",
+          "recebido": 987.85
+        }
+      ]
+    },
+    {
+      "nome": "Kalissa Valerio Goncalves",
+      "tma": "00:05:15",
+      "recebido_hoje": 966.71,
+      "pct_recebimento": 0.2966,
+      "recebido_semana": 3427.79,
+      "meta_semana": 11538,
+      "progresso": 0.2971,
+      "evolucao": -0.6072,
+      "ranking": 4,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📉 Caindo",
+      "negocia_muito_recebe_pouco": false,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 126.68
+        },
+        {
+          "data": "10/08",
+          "recebido": 740.84
+        },
+        {
+          "data": "11/08",
+          "recebido": 1602.91
+        },
+        {
+          "data": "12/08",
+          "recebido": 1088.62
+        },
+        {
+          "data": "13/08",
+          "recebido": 1218.85
+        },
+        {
+          "data": "14/08",
+          "recebido": 1362.97
+        },
+        {
+          "data": "15/08",
+          "recebido": 627.93
+        },
+        {
+          "data": "16/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "17/08",
+          "recebido": 2461.08
+        },
+        {
+          "data": "18/08",
+          "recebido": 966.71
+        }
+      ]
+    },
+    {
+      "nome": "Alexandre Lopes Dos Santos",
+      "tma": "00:04:26",
+      "recebido_hoje": 822.31,
+      "pct_recebimento": 0.1998,
+      "recebido_semana": 1177.91,
+      "meta_semana": 11538,
+      "progresso": 0.1021,
+      "evolucao": 1.3125,
+      "ranking": 5,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📈 Melhorando",
+      "negocia_muito_recebe_pouco": false,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 235.99
+        },
+        {
+          "data": "10/08",
+          "recebido": 2195.94
+        },
+        {
+          "data": "11/08",
+          "recebido": 779.78
+        },
+        {
+          "data": "12/08",
+          "recebido": 836.85
+        },
+        {
+          "data": "13/08",
+          "recebido": 701.38
+        },
+        {
+          "data": "14/08",
+          "recebido": 866.37
+        },
+        {
+          "data": "15/08",
+          "recebido": 799.37
+        },
+        {
+          "data": "16/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "17/08",
+          "recebido": 355.6
+        },
+        {
+          "data": "18/08",
+          "recebido": 822.31
+        }
+      ]
+    },
+    {
+      "nome": "Maria Do Carmo Souza Santos",
+      "tma": "00:05:20",
+      "recebido_hoje": 794.01,
+      "pct_recebimento": 0.345,
+      "recebido_semana": 1735.48,
+      "meta_semana": 11538,
+      "progresso": 0.1504,
+      "evolucao": -0.1566,
+      "ranking": 6,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📉 Caindo",
+      "negocia_muito_recebe_pouco": false,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "10/08",
+          "recebido": 513.76
+        },
+        {
+          "data": "11/08",
+          "recebido": 1518.81
+        },
+        {
+          "data": "12/08",
+          "recebido": 810.73
+        },
+        {
+          "data": "13/08",
+          "recebido": 540.04
+        },
+        {
+          "data": "14/08",
+          "recebido": 531.96
+        },
+        {
+          "data": "15/08",
+          "recebido": 559.37
+        },
+        {
+          "data": "16/08",
+          "recebido": 0.0
+        },
+        {
+          "data": "17/08",
+          "recebido": 941.47
+        },
+        {
+          "data": "18/08",
+          "recebido": 794.01
+        }
+      ]
+    },
+    {
+      "nome": "Joao Pedro De Souza Santos",
+      "tma": "00:04:09",
+      "recebido_hoje": 547.5,
+      "pct_recebimento": 0.1014,
+      "recebido_semana": 1264.13,
+      "meta_semana": 11538,
+      "progresso": 0.1096,
+      "evolucao": -0.236,
+      "ranking": 7,
+      "tma_fora_padrao": false,
+      "tendencia_texto": "📉 Caindo",
+      "negocia_muito_recebe_pouco": false,
+      "recebe_bem_baixo_volume": false,
+      "tendencia": [
+        {
+          "data": "09/08",
+          "recebido": 50.83
+        },
+        {
+          "data": "10/08",
+          "recebido": 865.9
+        },
+        {
+          "data": "11/08",
+          "recebido": 2882.76
+        },
+        {
+          "data": "12/08",
+          "recebido": 1157.45
+        },
+        {
+          "data": "13/08",
+          "recebido": 1316.95
+        },
+        {
+          "data": "14/08",
+          "recebido": 148.76
+        },
+        {
+          "data": "15/08",
+          "recebido": 337.79
+        },
+        {
+          "data": "16/08",
+          "recebido": 215.18
+        },
+        {
+          "data": "17/08",
+          "recebido": 716.63
+        },
+        {
+          "data": "18/08",
+          "recebido": 547.5
+        }
+      ]
+    }
+  ]
+}

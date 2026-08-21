@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HUBMAIS · Torre de Controle — Cobrança Vespertino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #060B14;
+    --bg-panel: #0E1729;
+    --bg-panel-2: #121D33;
+    --line: #223050;
+    --signal: #35E7CB;
+    --signal-dim: #1C6E63;
+    --gold: #F5B942;
+    --alert: #FF6B6B;
+    --text-hi: #EAF2FF;
+    --text-mid: #93A4C3;
+    --text-low: #4F5E7D;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: radial-gradient(ellipse 1200px 700px at 50% -10%, #0E1B33 0%, var(--bg-deep) 55%);
+    color: var(--text-hi);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+  }
+
+  .mono { font-family: 'Space Mono', monospace; }
+
+  /* ===== HEADER ===== */
+  header {
+    padding: 2rem 3rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .brand-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--signal);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 rgba(53,231,203,0.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(53,231,203,0.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(53,231,203,0); }
+    100% { box-shadow: 0 0 0 0 rgba(53,231,203,0); }
+  }
+
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin: 0.3rem 0 0.2rem;
+    letter-spacing: -0.01em;
+  }
+  h1 span { color: var(--signal); }
+
+  .subtitle { color: var(--text-mid); font-size: 0.9rem; }
+
+  .header-right { text-align: right; color: var(--text-mid); font-size: 0.78rem; }
+  .header-right .data-ref { color: var(--text-hi); font-size: 1rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+
+  /* ===== LAYOUT ===== */
+  main { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .kpi {
+    background: linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+  }
+  .kpi-label {
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-low); font-family: 'Space Mono', monospace; margin-bottom: 0.5rem;
+  }
+  .kpi-value { font-size: 1.7rem; font-weight: 800; font-family: 'Space Mono', monospace; }
+  .kpi-sub { font-size: 0.78rem; color: var(--text-mid); margin-top: 0.25rem; }
+
+  section-title, .section-title {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid);
+    margin-bottom: 1rem;
+  }
+  .section-title::before {
+    content: ''; width: 18px; height: 1px; background: var(--signal);
+  }
+
+  /* ===== RANKING ===== */
+  .ranking-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .rank-item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto 90px;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+  }
+  .rank-item.first { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(245,185,66,0.15) inset; }
+  .rank-num { font-family: 'Space Mono', monospace; color: var(--text-low); font-weight: 700; }
+  .rank-item.first .rank-num { color: var(--gold); }
+  .rank-name { font-weight: 600; font-size: 0.9rem; }
+  .rank-value { font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--signal); text-align: right; }
+  .signal-bars { display: flex; gap: 3px; align-items: flex-end; height: 18px; }
+  .signal-bars i { width: 5px; background: var(--line); border-radius: 1px; display: block; }
+  .signal-bars i.on { background: var(--signal); }
+  .signal-bars i:nth-child(1){height:25%} .signal-bars i:nth-child(2){height:45%}
+  .signal-bars i:nth-child(3){height:65%} .signal-bars i:nth-child(4){height:85%}
+  .signal-bars i:nth-child(5){height:100%}
+
+  /* ===== DISHES GRID (medidores tipo antena) ===== */
+  .dish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 1rem;
+  }
+  .dish-card {
+    background: linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .dish-card.alert { border-color: rgba(255,107,107,0.5); }
+  .dish-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
+  .dish-name { font-weight: 700; font-size: 0.92rem; line-height: 1.25; max-width: 130px; }
+  .dish-badge {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    color: var(--text-low); border: 1px solid var(--line); border-radius: 20px;
+    padding: 0.15rem 0.5rem;
+  }
+  .dish-svg-wrap { display: flex; align-items: center; justify-content: center; margin: 0.4rem 0; }
+  .dish-pct { font-family: 'Space Mono', monospace; font-size: 1.05rem; font-weight: 700; }
+  .dish-stats { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-mid); margin-top: 0.7rem; }
+  .dish-stats b { color: var(--text-hi); font-family: 'Space Mono', monospace; font-weight: 500; }
+  .evo-up { color: var(--signal); }
+  .evo-down { color: var(--alert); }
+  .tag-row { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.6rem; }
+  .tag {
+    font-size: 0.63rem; padding: 0.18rem 0.5rem; border-radius: 20px;
+    font-family: 'Space Mono', monospace; letter-spacing: 0.02em;
+  }
+  .tag.tma { background: rgba(255,107,107,0.12); color: var(--alert); border: 1px solid rgba(255,107,107,0.3); }
+  .tag.neg { background: rgba(245,185,66,0.1); color: var(--gold); border: 1px solid rgba(245,185,66,0.3); }
+  .tag.baixo { background: rgba(53,231,203,0.1); color: var(--signal); border: 1px solid rgba(53,231,203,0.3); }
+
+  /* ===== TENDÊNCIA ===== */
+  .trend-panel {
+    background: linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem 1rem;
+  }
+
+  /* ===== ALERTAS ===== */
+  .console {
+    background: #05090F;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 1.3rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 2;
+  }
+  .console .ok { color: var(--text-low); }
+  .console .warn { color: var(--gold); }
+  .console .danger { color: var(--alert); }
+  .console .tstamp { color: var(--text-low); margin-right: 0.6rem; }
+
+  footer {
+    text-align: center; color: var(--text-low); font-size: 0.72rem;
+    font-family: 'Space Mono', monospace; margin-top: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    header, main { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-dot { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand-eyebrow"><span class="pulse-dot"></span> HUBMAIS · SINAL ATIVO</div>
+    <h1>Torre de <span>Controle</span> — Cobrança</h1>
+    <div class="subtitle" id="subtitulo">Turno Vespertino · Sup. Reginaldo Sousa Barbosa</div>
+  </div>
+  <div class="header-right">
+    <div>DIA DE REFERÊNCIA</div>
+    <div class="data-ref" id="dataRef">--/--/----</div>
+    <div id="geradoEm" style="margin-top:0.3rem;">atualizado --</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <div>
+    <div class="section-title">Ranking do turno — recebido hoje</div>
+    <div class="ranking-list" id="rankingList"></div>
+  </div>
+
+  <div>
+    <div class="section-title">Sinal individual — progresso da meta semanal</div>
+    <div class="dish-grid" id="dishGrid"></div>
+  </div>
+
+  <div class="trend-panel">
+    <div class="section-title">Tendência — recebido da equipe (últimos dias)</div>
+    <svg id="trendChart" width="100%" height="180" viewBox="0 0 1000 180" preserveAspectRatio="none"></svg>
+  </div>
+
+  <div>
+    <div class="section-title">Alertas do supervisor</div>
+    <div class="console" id="alertConsole"></div>
+  </div>
+
+</main>
+
+<footer>HUBMAIS MANAGER — gerado automaticamente a partir da Base Central · não substitui a validação do supervisor</footer>
+
+<script>
+const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const fmtPct = v => (v * 100).toFixed(0) + '%';
+
+async function carregar() {
+  const res = await fetch('./data.json?t=' + Date.now());
+  const d = await res.json();
+  render(d);
+}
+
+function render(d) {
+  document.getElementById('dataRef').textContent = d.data_referencia;
+  document.getElementById('geradoEm').textContent = 'atualizado ' + d.gerado_em;
+  document.getElementById('subtitulo').textContent = `Turno ${d.turno} · Sup. ${d.supervisor}`;
+
+  // KPIs
+  const kpiRow = document.getElementById('kpiRow');
+  const kpis = [
+    { label: 'Recebido hoje (equipe)', value: fmtBRL(d.equipe.recebido_hoje), sub: `Meta diária/colab.: ${fmtBRL(d.config.meta_diaria)}` },
+    { label: 'Recebido na semana', value: fmtBRL(d.equipe.recebido_semana), sub: `de ${fmtBRL(d.equipe.meta_semana)} (equipe)` },
+    { label: 'Progresso da meta', value: fmtPct(d.equipe.progresso), sub: barraTexto(d.equipe.progresso) },
+    { label: 'Colaboradores em sinal', value: `${d.colaboradores.filter(c => !c.tma_fora_padrao).length}/${d.colaboradores.length}`, sub: 'TMA dentro do padrão' },
+  ];
+  kpiRow.innerHTML = kpis.map(k => `
+    <div class="kpi">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>`).join('');
+
+  // Ranking
+  const rankingList = document.getElementById('rankingList');
+  rankingList.innerHTML = d.colaboradores.map(c => `
+    <div class="rank-item ${c.ranking === 1 ? 'first' : ''}">
+      <div class="rank-num mono">${String(c.ranking).padStart(2, '0')}</div>
+      <div class="rank-name">${c.nome}</div>
+      <div class="signal-bars">${sinalBars(c.ranking, d.colaboradores.length)}</div>
+      <div class="rank-value">${fmtBRL(c.recebido_hoje)}</div>
+    </div>`).join('');
+
+  // Dishes (medidores individuais)
+  const dishGrid = document.getElementById('dishGrid');
+  dishGrid.innerHTML = d.colaboradores.map(c => dishCard(c)).join('');
+
+  // Tendência da equipe
+  desenharTendencia(d.equipe.tendencia, d.config.meta_diaria * d.colaboradores.length);
+
+  // Console de alertas
+  const alertas = [];
+  d.colaboradores.forEach(c => {
+    if (c.tma_fora_padrao) alertas.push({ tipo: 'danger', msg: `TMA fora do padrão — ${c.nome} (${c.tma})` });
+    if (c.negocia_muito_recebe_pouco) alertas.push({ tipo: 'warn', msg: `Negocia muito, recebe pouco — ${c.nome}` });
+    if (c.recebe_bem_baixo_volume) alertas.push({ tipo: 'warn', msg: `Recebe bem, baixo volume de negociações — ${c.nome}` });
+    if (c.tendencia_texto && c.tendencia_texto.includes('Caindo')) alertas.push({ tipo: 'warn', msg: `Queda vs. dia anterior — ${c.nome}` });
+  });
+  const consoleEl = document.getElementById('alertConsole');
+  consoleEl.innerHTML = alertas.length
+    ? alertas.map(a => `<div class="${a.tipo}"><span class="tstamp">[SINAL]</span>${a.msg}</div>`).join('')
+    : `<div class="ok">[SINAL] Nenhum alerta — todos os colaboradores dentro do padrão.</div>`;
+}
+
+function barraTexto(p) {
+  const pct = Math.min(p, 1) * 100;
+  return `<div style="background:var(--line);height:5px;border-radius:3px;margin-top:0.4rem;overflow:hidden;">
+    <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--signal),var(--gold));"></div>
+  </div>`;
+}
+
+function sinalBars(ranking, total) {
+  const nivel = Math.ceil(5 * (total - ranking + 1) / total);
+  let html = '';
+  for (let i = 1; i <= 5; i++) html += `<i class="${i <= nivel ? 'on' : ''}"></i>`;
+  return html;
+}
+
+function dishCard(c) {
+  const pct = Math.min(c.progresso, 1);
+  const raio = 42, circ = 2 * Math.PI * raio;
+  const offset = circ * (1 - pct);
+  const cor = pct >= 1 ? 'var(--gold)' : 'var(--signal)';
+  const evoIcon = c.evolucao === null ? '—' : (c.evolucao >= 0 ? '▲' : '▼');
+  const evoClass = c.evolucao === null ? '' : (c.evolucao >= 0 ? 'evo-up' : 'evo-down');
+  const evoTxt = c.evolucao === null ? 'sem base' : fmtPct(Math.abs(c.evolucao));
+
+  const tags = [];
+  if (c.tma_fora_padrao) tags.push('<span class="tag tma">TMA ATÍPICO</span>');
+  if (c.negocia_muito_recebe_pouco) tags.push('<span class="tag neg">NEGOCIA×RECEBE</span>');
+  if (c.recebe_bem_baixo_volume) tags.push('<span class="tag baixo">BAIXO VOLUME</span>');
+
+  return `
+  <div class="dish-card ${c.tma_fora_padrao ? 'alert' : ''}">
+    <div class="dish-top">
+      <div class="dish-name">${c.nome}</div>
+      <div class="dish-badge">#${c.ranking}</div>
+    </div>
+    <div class="dish-svg-wrap">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <circle cx="55" cy="55" r="${raio}" fill="none" stroke="var(--line)" stroke-width="8"/>
+        <circle cx="55" cy="55" r="${raio}" fill="none" stroke="${cor}" stroke-width="8"
+          stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+          transform="rotate(-90 55 55)" style="transition: stroke-dashoffset 0.6s ease;"/>
+        <text x="55" y="50" text-anchor="middle" class="mono" fill="var(--text-hi)" font-size="18" font-weight="700">${(pct*100).toFixed(0)}%</text>
+        <text x="55" y="66" text-anchor="middle" class="mono" fill="var(--text-low)" font-size="8">META SEMANAL</text>
+      </svg>
+    </div>
+    <div class="dish-stats">
+      <span>TMA<br><b>${c.tma}</b></span>
+      <span>Hoje<br><b>${fmtBRL(c.recebido_hoje)}</b></span>
+      <span class="${evoClass}">vs. ontem<br><b>${evoIcon} ${evoTxt}</b></span>
+    </div>
+    <div class="tag-row">${tags.join('')}</div>
+  </div>`;
+}
+
+function desenharTendencia(pontos, metaEquipeDia) {
+  const svg = document.getElementById('trendChart');
+  const W = 1000, H = 180, pad = 24;
+  const valores = pontos.map(p => p.recebido);
+  const max = Math.max(...valores, metaEquipeDia) * 1.15;
+  const passoX = (W - pad * 2) / (pontos.length - 1);
+
+  const coords = pontos.map((p, i) => {
+    const x = pad + i * passoX;
+    const y = H - pad - (p.recebido / max) * (H - pad * 2);
+    return [x, y];
+  });
+
+  const linha = coords.map((c, i) => (i === 0 ? 'M' : 'L') + c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' ');
+  const area = linha + ` L${coords[coords.length-1][0]},${H-pad} L${coords[0][0]},${H-pad} Z`;
+  const yMeta = H - pad - (metaEquipeDia / max) * (H - pad * 2);
+
+  let svgHtml = `
+    <defs>
+      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#35E7CB" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#35E7CB" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <line x1="${pad}" y1="${yMeta}" x2="${W-pad}" y2="${yMeta}" stroke="#F5B942" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+    <path d="${area}" fill="url(#areaGrad)" />
+    <path d="${linha}" fill="none" stroke="#35E7CB" stroke-width="2.5" />
+  `;
+  coords.forEach((c, i) => {
+    svgHtml += `<circle cx="${c[0]}" cy="${c[1]}" r="3.5" fill="#060B14" stroke="#35E7CB" stroke-width="2"/>`;
+    svgHtml += `<text x="${c[0]}" y="${H-6}" text-anchor="middle" font-size="10" fill="#4F5E7D" font-family="Space Mono, monospace">${pontos[i].data}</text>`;
+  });
+  svg.innerHTML = svgHtml;
+}
+
+carregar();
+</script>
+
+</body>
+</html>
